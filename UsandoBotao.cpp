@@ -224,3 +224,35 @@ void loop (){
  delay (500);
  Serial.println(luminosidade);
 }
+
+
+// SENSOR DE PRESENÇA COM LEDS DE INDICAÇÃO
+const int sensor = 2; //pino digital utilizado pelo sensor de presença
+const int ledverm = 10; //pino digital utilizado pelo led detecção
+const int ledverd = 11; //pino digital utilizado pelo led sem detecção
+
+int movimento_sensor = 0;
+
+void setup(){
+  pinMode(ledverm, OUTPUT); 
+  pinMode(ledverd, OUTPUT); 
+  pinMode(sensor, INPUT); 
+  Serial.begin(9600);
+}
+
+void loop(){
+ movimento_sensor = digitalRead(sensor);
+  
+  
+ if (movimento_sensor == HIGH){ //se o sensor identificar movimento
+    digitalWrite(ledverm, HIGH); //acende o LED
+   digitalWrite(ledverd, LOW); //apaga o LED
+    Serial.println("Movimento Detectado");
+ }
+  else
+  { //SENÃO
+  	digitalWrite(ledverd, HIGH); //apaga o LED
+    digitalWrite(ledverm, LOW); //apaga o LED
+    Serial.println("Nenhum Movimenteo Suspeito Detectado");
+ }
+}
